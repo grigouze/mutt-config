@@ -1,0 +1,18 @@
+# sidebar stuff:
+  set sidebar_visible="no"
+  set sidebar_width=25
+  set sidebar_shorten_hierarchy
+  color sidebar_new yellow default
+
+# keybindings:
+  bind index F flag-message
+  bind pager F flag-message
+
+  macro index z    "c?\t"                            "List mailboxes and switch to selected one"
+  macro index <f2> "<enter-command>set invsidebar_visible<enter>" "Toggle sidebar visibility"
+  macro index \cW  ':push <sidebar-prev-new><enter>' "Jump to previous mailbox with new messages in sidebar"
+  macro index \cE  ':push <sidebar-next-new><enter>' "Jump to next mailbox with new messages in sidebar"
+  macro index \cP  ':push <sidebar-prev><enter>'     "Jump to previous mailbox in sidebar"
+  macro index \cN  ':push <sidebar-next><enter>'     "Jump to next mailbox in sidebar"
+  macro index \cO  ':push <sidebar-open><enter>'     "Open selected mailbox in sidebar"
+# bind index <space> sidebar-open

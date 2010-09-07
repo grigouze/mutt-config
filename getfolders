@@ -1,0 +1,87 @@
+#!/bin/sh
+#
+# getfolders - get a list of folders in your mail
+#              directory to output for use by Mutt
+# Copyright (C) 2000 Chris Gushue <chris@blackplasma.net>
+#
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 2 of the license, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program; if not, write to the Free Software
+#     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# $Id: getfolders,v 1.7 2000/09/01 18:56:02 seymour Exp $
+
+# This line is simply using in your muttrc as follows:
+#   mailboxes `~/.mutt/getfolders`
+# Which will output something like:
+#   mailboxes +2000/05/Inbox +2000/05/debian-user +2000/05/debian-ipv6
+#
+# This should make automatic mail sorting much easier to handle. Now you can
+# easily deal with multiple mailing lists and monthly sorting.
+
+# Set MBOX to "yes" if you use mbox instead of Maildir
+MBOX="no"
+
+# Set to "yes" if you want to check last month's mail for new messages
+#   NOT recommended unless you use Maildir - you'll have to uncomment
+#   a portion of the code near the bottom if you REALLY want to use it
+#   with mbox mail folders (will also require grepmail)
+CHECKLAST="no"
+
+MPATH=/home/grigouze/Mail        # Where your mail is stored
+MDATE=`~/.mutt/mailmonth`       # This month
+ODATE=`~/.mutt/mailmonth 1`     # Last month
+
+# Creates the Inbox folder if it is missing (I hope, not tested)
+if [ $MBOX = "yes" ]; then
+  if [ ! -f $MPATH/$MDATE/Inbox ]; then
+    touch $MPATH/$MDATE/Inbox
+    chmod 700 $MPATH/$MDATE/Inbox
+  fi
+else
+  if [ ! -d $MPATH/$MDATE/Inbox ]; then
+    mkdir $MPATH/$MDATE/Inbox
+    mkdir $MPATH/$MDATE/Inbox/cur
+    mkdir $MPATH/$MDATE/Inbox/new
+    mkdir $MPATH/$MDATE/Inbox/tmp
+    chmod -R 700 $MPATH/$MDATE/Inbox
+  fi
+fi
+
+# Get a list of mail folders and echo in a Mutt-friendly format
+# (and ignore the sent-mail folder)
+for file in `ls $MPATH/$MDATE/`; do
+  if [ $file != sent-mail ]; then
+    echo -n "+$MDATE/$file "
+  fi
+done
+
+# Check for any folders left from last month with new mail
+if [ $CHECKLAST = "yes" ]; then
+  for file in `ls $MPATH/$ODATE/`; do
+    if [ -d $MPATH/$ODATE/$file ]; then
+      if [ `ls $MPATH/$ODATE/$file/new | wc -l` != 0 ]; then
+        # There are still new mails, include in list
+        echo -n "+$ODATE/$file "
+      fi
+    #else
+      # This part doesn't really work well, grepmail is very slow,
+      # especially on mbox folders. I suggest you don't use it.
+      # If you can think of a fast way, let me know
+      #if [ `grepmail -r -h "^Status:.*N" | awk '{printf("%s",$2);}'` != 0 ]; then
+      #  echo -n "+$ODATE/$file "
+      #fi
+    fi
+  done
+fi
+
+echo

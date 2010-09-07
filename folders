@@ -1,0 +1,27 @@
+## Mail folders
+set folder=~/Mail
+set mailcap_path=~/.mutt/mailcap
+set spoolfile=+`~/.mutt/mailmonth`/Inbox
+set record=+`~/.mutt/mailmonth`/sent-mail
+folder-hook !(mbox1|mbox2|mbox3)$ set record='=`~/.mutt/mailmonth`/sent-mail' 
+
+set postponed=+postponed
+
+## Dated mailboxes
+#
+# years
+#
+#mailboxes +1996 +1997 +1998 +1999 +2000 +2001 /var/spool/mail/grigouze
+#mailboxes +2000 +2001
+#mailboxes /var/spool/mail/grigouze
+
+#
+# the next two are like +2000/03 and +2000/02
+# see ~/.mutt/mailmonth for an explanation
+#
+mailboxes +`~/.mutt/mailmonth 2`
+mailboxes +`~/.mutt/mailmonth 1`
+#
+# this line gets a list of folders that exist
+#
+mailboxes `~/.mutt/getfolders`

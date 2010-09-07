@@ -1,0 +1,25 @@
+# color settings
+color attachment brightmagenta black  # guess :-)
+color error brightwhite red         # errors yell at you in red 
+color hdrdefault red black   # headers 
+color indicator brightyellow magenta # currently selected message, etc 
+color markers brightcyan black     # the + for wrapped pager lines
+color message brightcyan black     # informational messages, *not mail* 
+color normal white black           # plain text  
+color quoted green black      # quoted text
+color search brightgreen black     # hilite search patterns in the pager
+color signature red black          # signature (after "-- ") is red  
+color status brightyellow blue     # status bar is yellow *on blue*
+color tilde blue black              # ~'s after message body
+color tree red black               # thread tree in index menu is magenta
+
+color header cyan black ^(From|Subject):       # Important headers
+color body magenta black "(ftp|http)://[^ ]+"  # picks up URLs in body of message. 
+color body magenta black [-a-z_0-9.]+@[-a-z_0-9.]+ # picks up email addresses
+
+mono header underline ^(From|Subject):
+mono quoted bold
+mono error standout
+mono indicator bold
+mono status reverse
+mono search reverse

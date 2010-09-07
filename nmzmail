@@ -1,0 +1,2 @@
+# search mail engine
+macro generic X "<shell-escape>nmzmail<return><esc>c~/.nmzmail/result<return>" "Search via nmzmail"

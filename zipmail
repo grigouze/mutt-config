@@ -1,0 +1,69 @@
+#!/bin/sh
+#
+# zipmail - Converts Maildir to mbox and compresses
+# Copyright (C) 2000 Chris Gushue <chris@blackplasma.net>
+#
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 2 of the license, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program; if not, write to the Free Software
+#     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# $Id: zipmail,v 1.6 2000/09/01 18:56:03 seymour Exp $
+#
+# This script requires maildir2mbox, which is part of qmail
+#
+# It has worked for me for the past 3 months, but I still
+# make no guarantees as to its safety. If you wish to use it,
+# any loss of mail is your problem and not mine.
+#
+# I run it from cron as follows:
+#
+# # Run on the 2nd day of every month (converts/compresses last month's mail)
+# 30 04 2 * * /home/seymour/.mutt/zipmail `/home/seymour/.mutt/mailmonth 1`
+
+PATH="/usr/local/bin:/usr/bin:/bin"
+WHERE="/home/grigouze/Mail"
+
+# What folder of Maildir boxes do we want to process?
+# (In my case, which month - ~/mail/2000/08 for example)
+if [ -z $1 ]; then
+  WHAT=`/home/grigouze/.mutt/mailmonth 1`
+else
+  WHAT=$1
+fi
+
+cd $WHERE/$WHAT
+
+echo "Backing up $WHERE/$WHAT:"
+
+for folder in *
+do
+  if [ -d $folder ]; then
+    echo "  $folder"
+    # Set up variables for maildir2mbox
+    export MAILDIR="$WHERE/$WHAT/$folder"
+    export MAIL="$WHERE/$WHAT/$folder.txt"
+    export MAILTMP="$WHERE/$WHAT/$folder.tmp"
+    # Run it...
+    /home/grigouze/.mutt/maildir2mbox
+    # Clean up and compress
+    if [ -f $folder.txt ]; then
+      rm -rf $folder
+      mv $folder.txt $folder
+      gzip $folder
+    fi
+  else
+    echo "  <$folder>"
+  fi
+done
+
+echo "done."

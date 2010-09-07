@@ -1,0 +1,29 @@
+# Macros
+macro index l "g?\t" "folder list" # Shows folder list, no need to hit TAB
+macro pager l "g?\t" "folder list" # Shows folder list, no need to hit TAB
+macro browser c "qm" "compose mail" # To compse new mail from the browser
+macro index S "as" "save tagged messages" # Saves tagged messages
+macro pager P "!gpg --keyserver wwwkeys.us.pgp.net --recv-key 0x" "Get PGP Key"
+macro pager L "!gpg --lsign-key 0x" "Sign PGP Key"
+
+# from the mutt-users mailing list
+macro index \ee ":source ~/.mutt/muttrc\n" "\"ESC e\" reloads the muttrc"
+macro pager \ee ":source ~/.mutt/muttrc\n" "\"ESC e\" reloads the muttrc"
+
+# From http://www.spinnaker.de/mutt/keybind
+macro index \ea "!$EDITOR ~/.mutt/aliases\n:source ~/.mutt/aliases\n" "edit aliases file and reload it"
+macro pager \ea "!$EDITOR ~/.mutt/aliases\n:source ~/.mutt/aliases\n" "edit aliases file and reload it"
+macro attach s <save-entry><bol>~/<eol>
+
+# bogofilter
+#macro index s "<enter-command>unset wait_key\n<pipe-entry>bogofilter -N\n<enter-command>set wait_key\n<save-entry>"
+#macro pager s "<enter-command>unset wait_key\n<pipe-entry>bogofilter -N\n<enter-command>set wait_key\n<save-entry>"
+#macro index r "<enter-command>unset wait_key\n<pipe-entry>bogofilter -n\n<enter-command>set wait_key\n<reply>"
+#macro pager r "<enter-command>unset wait_key\n<pipe-entry>bogofilter -n\n<enter-command>set wait_key\n<reply>"
+#macro index g "<enter-command>unset wait_key\n<pipe-entry>bogofilter -n\n<enter-command>set wait_key\n<group-reply>"
+#macro pager g "<enter-command>unset wait_key\n<pipe-entry>bogofilter -n\n<enter-command>set wait_key\n<group-reply>"
+#macro index l "<enter-command>unset wait_key\n<pipe-entry>bogofilter -n\n<enter-command>set wait_key\n<list-reply>"
+#macro pager l "<enter-command>unset wait_key\n<pipe-entry>bogofilter -n\n<enter-command>set wait_key\n<list-reply>"
+#macro index X "<enter-command>unset wait_key\n<pipe-entry>bogofilter -S\n<enter-command>set wait_key\n<delete-message>"
+#macro pager X "<enter-command>unset wait_key\n<pipe-entry>bogofilter -S\n<enter-command>set wait_key\n<delete-message>"
+

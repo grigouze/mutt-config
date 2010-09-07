@@ -1,0 +1,95 @@
+# Personal headers
+source ~/.mutt/headers
+
+# Mail folders
+source ~/.mutt/folders
+
+# Headers to ignore
+#source ~/.mutt/ignores
+
+# Settings
+source ~/.mutt/settings
+
+# Formats
+source ~/.mutt/formats
+
+# E-Mail Aliases
+set alias_file=~/.mutt/aliases
+source ~/.mutt/aliases
+
+# Macros
+source ~/.mutt/macros
+
+# Colours
+source ~/.mutt/colours
+#source ~/.mutt/colours2
+source ~/.mutt/colors.angdraug
+
+# Keybindings
+#source ~/.mutt/keybindings2
+
+# New GnuPG stuff for Mutt 1.2+
+source ~/.mutt/gpg.rc
+
+# rajoute par m.jouanne
+alternates mickael@gandi.net|tech@gandi.net|support-team@gandi.net|salaries@gandi.net|gandimail@gandi.net
+
+set locale="fr_FR"
+
+bind index \< next-unread
+bind pager \< next-unread
+
+#set point_new
+set abort_nosubject=ask-yes
+set abort_unmodified=no
+set delete=yes
+set include=yes
+set postpone=no
+set quit=yes
+set reply_to=yes
+set resolve
+set fast_reply
+set arrow_cursor
+set print_command=muttprint
+
+#set ispell="/usr/bin/ispell -d francais"
+set ispell="aspell -e -c"
+
+# Sidebar
+#source ~/.mutt/sidebar
+
+# spamassassin
+source ~/.mutt/spamassassin
+
+# search engine
+source ~/.mutt/nmzmail
+
+# encoding
+set locale=fr_FR.UTF-8
+#set charset="iso-8859-1"
+set allow_8bit=yes
+set send_charset="iso-8859-1:windows-1251:utf-8"
+
+#indexing
+#macro index "\ch" "!~/.mutt/swish_search.sh\nc=sqmbox.tmp\n"
+#folder-hook sqmbox.tmp set sort=mailbox-order
+
+# aspell francais
+macro compose if '<enter-command>set ispell="aspell \
+--language-tag=fr -c --mode=email" <enter><ispell>' \
+'Run aspell with French dictionary'
+
+# aspell anglais
+macro compose ie '<enter-command>set ispell="aspell \
+--language-tag=en -c --mode=email" <enter><ispell>' \
+'Run aspell with English dictionary'
+
+set query_command="lbdbq %s"
+
+# muttng
+#source ~/.mutt/muttng
+
+macro index \cb |urlview\n
+macro pager \cb |urlview\n
+
+auto_view text/x-diff

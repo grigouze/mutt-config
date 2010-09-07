@@ -1,0 +1,82 @@
+#!/bin/sh
+#
+# mailmonth - outputs a mail folder name for X months ago
+# Copyright (C) 2000,2001 Chris Gushue <chris@blackplasma.net>
+#
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 2 of the license, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program; if not, write to the Free Software
+#     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# $Id: mailmonth,v 1.8 2001/01/03 15:45:07 seymour Exp $
+
+# I made this little shell script so I wouldn't have to keep changing
+# the monthly mail folders for Mutt (used in conjunction with my procmail
+# scripts, available from the place you obtained this script) manually.
+#
+# eg. "./mailmonth 2" will display the folder for two months ago
+#     "./mailmonth 1" will display the folder for last month
+#     "./mailmonth" will display the folder for the current month
+#
+# To be used in .muttrc as follows:
+#
+# mailboxes +`~/.mutt/mailmonth`/Inbox
+# mailboxes +`~/.mutt/mailmonth 2`
+# mailboxes +`~/.mutt/mailmonth 1`
+#
+# Visit http://mutt.lazygenes.net for more of my Mutt stuff
+
+GNUDATE="yes" # Change to "no" if you aren't using the GNU date util
+
+# pour mettre un mois/annee particuliere
+#echo "2010/08"
+#exit 0
+
+if [ $# -eq 0 ]; then
+  echo `date +%Y/%m`
+else
+  if [ $GNUDATE = "yes" ]; then 
+    echo `date -d "$1 months ago" +%Y/%m`
+  else
+    echo `date -v -$1m +"%Y/%m"`
+  fi
+fi
+
+exit 0
+
+## ** This method has problems still **
+# Method which doesn't rely on GNU date, thanks to BinarySoul <binary@b1n.org>
+m=`date +%m`
+y=`date +%Y`
+
+if [ $# -eq 0 ] ; then
+  dt="$y/$m"
+else
+  d=$1
+  m=$(($m - $d))
+  if [ $m -eq 0 ] ; then
+    m=12
+    y=$(($y - 1))
+  elif [ $m -lt 0 -a $m -gt -12 ] ; then
+    m=$((12 - $d + 1))
+    y=$(($y - 1))
+  elif [ $m -le -12 ] ; then
+    m=$((  $m * -1))
+    y2=$(( $m/12 - 1 ))
+    y=$(( $y - $y2 ))
+    m=$(( 12 - ($m%12) ))
+  fi
+  dt="$y/$m"
+fi
+
+echo $dt
+

@@ -1,0 +1,12 @@
+# Personal headers
+my_hdr From: Jouanne Mickael <mickael@gandi.net>
+
+# eg. Linux/2.2.15 (i686)
+my_hdr X-Operating-System: Debian GNU/Linux/`uname -r` (`uname -m`)
+
+my_hdr X-URL: http://gandi.net
+my_hdr X-Fingerprint: A2AD 0A93 FD79 5289 C031  006D 11AC 92D7 2BE2 A74A
+
+# Generated when you compose a new email
+send-hook . 'my_hdr X-Uptime: `uptime`'
+send-hook . 'my_hdr X-Evil: Without evil there could be no good, so it must be good to be evil sometimes.'

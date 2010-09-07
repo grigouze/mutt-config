@@ -1,0 +1,32 @@
+# These colours depend on the default /etc/Muttrc (with the source,
+# distributions may have a modified copy), and the following line in
+# your ~/.bash_profile (S-Lang only, I believe):
+# export COLORFGBG="lightgrey;black"
+
+# Colours I like
+color normal white black
+color quoted green black
+color quoted1 cyan black
+color quoted2 green black
+color quoted3 cyan black
+color indicator white red
+color signature blue black
+color hdrdefault yellow black
+color status white blue
+color message white black
+color error red black
+color body magenta black "(ftp|http)://[^ ]+"
+color body magenta black [-a-z_0-9.]+@[-a-z_0-9.]+
+
+# Colours I haven't changed yet
+color tree magenta black
+color tilde magenta black 
+color markers brightcyan black
+color attachment brightmagenta black
+color search black green
+color underline brightgreen black
+
+# colours messages for certain authors
+# (Note: the order here seems to matter)
+color index magenta black '(~f betamail@microsoft\.com)|(~f msbmail2@microsoft\.com)'
+color index brightred black '(~f seymour@iname\.com)|(~f chris@blackplasma\.net)'

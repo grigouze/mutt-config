@@ -1,0 +1,13 @@
+text/x-vcard;   ~/.mutt/mutt.vcard.filter; copiousoutput
+#text/html;      /usr/bin/lynx -dump -force_html %s; copiousoutput; nametemplate=%s.html
+text/html;      w3m %s; copiousoutput; nametemplate=%s.html
+image/bmp;	gqview %s
+image/jpeg;      gqview %s
+image/gif;      gqview %s
+image/png;		gqview %s
+application/msword;	antiword %s ; copiousoutput
+application/pdf;	evince %s
+#application/octet-stream; ~/.mutt/mutt.octet.filter %s; copiousoutput
+application/vnd.sun.xml.writer;	ooffice %s
+#text/x-diff;vim -d %s;
+text/x-diff;cat %s; copiousoutput

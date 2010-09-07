@@ -1,0 +1,30 @@
+set pager_index_lines=8                         # use this for a split screen
+#set signature="/usr/games/fortune homer"|       # generated signature
+set signature=~/.mutt/signature                           # static signature
+#set signature="/bin/cat ~/.mutt/signature ; echo '*'; /bin/nc bar 4444 | /usr/bin/tail -n +3 ; echo '*'"|
+set sort=threads                                # sort in threaded mode
+set nosave_name
+set nomark_old
+set nomove
+#set ascii_chars
+set status_on_top
+set reverse_name
+set quote_regexp="^([ \t]*[|>:%}#])+"
+set editor='vim'
+set sendmail="/usr/sbin/sendmail -oem -oi"
+set abort_unmodified=no
+
+hdr_order Date: From: Reply-To: To: Cc: Subject:
+
+unset use_from
+unset beep
+unset confirmappend
+
+auto_view text/x-vcard
+auto_view text/html
+#auto_view application/octet-stream
+
+alternative_order text/plain text/enriched text/html
+
+# Collapse threads by default, and jump to the last message
+folder-hook . push "P*"
