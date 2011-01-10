@@ -93,3 +93,6 @@ macro index \cb |urlview\n
 macro pager \cb |urlview\n
 
 auto_view text/x-diff
+
+# cache
+source ~/.mutt/cacherc
