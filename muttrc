@@ -31,9 +31,6 @@ source ~/.mutt/colors.angdraug
 # New GnuPG stuff for Mutt 1.2+
 source ~/.mutt/gpg.rc
 
-# rajoute par m.jouanne
-alternates mickael@gandi.net|tech@gandi.net|support-team@gandi.net|salaries@gandi.net|gandimail@gandi.net
-
 set locale="fr_FR"
 
 bind index \< next-unread
